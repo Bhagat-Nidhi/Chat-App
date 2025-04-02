@@ -4,7 +4,7 @@ import { useAuthStore } from '../store/useAuthStore';
 const Navbar = () => {
   return (
     <div>
-      Navbar
+      <h1 style={{"color": "white"}}>Navbar</h1>
     </div>
   );
 };
