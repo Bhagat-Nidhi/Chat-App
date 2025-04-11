@@ -11,8 +11,11 @@ import ProfilePage from "./pages/ProfilePage";
 
 import { useEffect } from "react";
 import { Loader } from "lucide-react";
+import { Toaster } from "react-hot-toast";
+
 
 import { useAuthStore } from "./store/useAuthStore"; // ✅ corrected import
+import Toast from "daisyui/components/toast";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore(); // ✅ correct usage
@@ -39,6 +42,8 @@ const App = () => {
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/profile" element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
       </Routes>
+
+      <Toaster />
     </div>
   );
 };
