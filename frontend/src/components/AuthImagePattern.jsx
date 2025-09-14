@@ -1,17 +1,27 @@
-const AuthImagePattern = ({ title, subtitle }) => {
+const AuthImagePattern = ({ title, subtitle, image }) => {
   return (
-    <div className="hidden lg:flex flex-col justify-start items-center bg-base-200 text-center px-8 pt-24 pb-8">
-      <img
-        src="/img.svg"
-        alt="Auth Illustration"
-        className="w-full max-w-[400px] h-[300px] object-contain rounded-xl shadow-md"
-      />
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold">{title}</h2>
-        <p className="text-base-content/70 mt-2 max-w-xs">
-          {subtitle}
-        </p>
+    <div className="hidden lg:flex items-center justify-center bg-base-200 p-12">
+      <div className="max-w-md text-center">
+        {/* Show image if provided */}
+        {image && (
+          <img
+            src={image}
+            alt="Login Visual"
+            className="mb-8 max-w-xs mx-auto rounded-lg"
+          />
+        )}
+        <div className="grid grid-cols-3 gap-3 mb-8">
+          {[...Array(9)].map((_, i) => (
+            <div
+              key={i}
+              className={`aspect-square rounded-2xl bg-primary/10 ${
+                i % 2 === 0 ? "animate-pulse" : ""
+              }`}
+            />
+          ))}
+        </div>
+        <h2 className="text-2xl font-bold mb-4">{title}</h2>
+        <p className="text-base-content/60">{subtitle}</p>
       </div>
     </div>
   );

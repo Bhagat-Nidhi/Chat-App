@@ -1,15 +1,10 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "./Navbar";
+// filepath: C:/Users/Lenovo/Desktop/Chat-App/frontend/src/components/Layout.jsx
+import React from "react";
 
-const Layout = () => {
-  return (
-    <>
-      <Navbar />
-      <main className="pt-16">
-        <Outlet />
-      </main>
-    </>
-  );
-};
+const Layout = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 
 export default Layout;

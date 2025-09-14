@@ -11,3 +11,24 @@ cloudinary.config({
 });
 
 export default cloudinary;
+
+export const uploadImage = async (filePath) => {
+  try {
+    const result = await cloudinary.uploader.upload(filePath, { folder: "your_folder_name" });
+    return result;
+  } catch (error) {
+    throw error;
+  } finally {
+    // Optionally, you can delete the local file after upload
+    // fs.unlinkSync(filePath);
+  }     
+};
+
+export const deleteImage = async (publicId) => {
+  try {
+    const result = await cloudinary.uploader.destroy(publicId);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};

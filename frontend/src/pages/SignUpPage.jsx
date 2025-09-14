@@ -1,9 +1,7 @@
-
 import { useState } from "react";
-import { useAuthStore } from "../store/useAuthStore"; // Importing auth store
+import { useAuthStore } from "../store/useAuthStore";
+import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Eye, EyeOff, Mail, Lock, User, MessageSquare, Loader2 } from "lucide-react";
-
 
 import AuthImagePattern from "../components/AuthImagePattern";
 import toast from "react-hot-toast";
@@ -28,15 +26,6 @@ const SignUpPage = () => {
     return true;
   };
 
-  /*const validateForm = () => {
-    if (!formData.fullName || !formData.email || !formData.password) {
-      setError("All fields are required.");
-      return false;
-    }
-    setError("");
-    return true;
-  };
-*/
   const handleSubmit = (e) => {
     e.preventDefault();
 

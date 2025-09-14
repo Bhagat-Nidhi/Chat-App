@@ -2,28 +2,13 @@ import { useEffect, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { useAuthStore } from "../store/useAuthStore";
 import SidebarSkeleton from "./skeletons/SidebarSkeleton";
-import { Users } from "lucide-react"; // ✅ Restored import
+import { Users } from "lucide-react";
 
 const Sidebar = () => {
-  const {
-    getUsers,
-    users,
-    selectedUser,
-    setSelectedUser,
-    isUsersLoading
-  } = useChatStore();
+  const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } = useChatStore();
 
-  const { authUser } = useAuthStore(); // ✅ correctly access authUser
+  const { onlineUsers } = useAuthStore();
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
-  const [onlineUsers, setOnlineUsers] = useState([]);
-
-  // ✅ Optional: Load onlineUsers if you're tracking them via socket later
-  // For now, simulate by including all users except authUser
-  useEffect(() => {
-    if (users.length) {
-      setOnlineUsers(users.filter((u) => u._id !== authUser?._id).map((u) => u._id));
-    }
-  }, [users, authUser]);
 
   useEffect(() => {
     getUsers();
@@ -42,7 +27,7 @@ const Sidebar = () => {
           <Users className="size-6" />
           <span className="font-medium hidden lg:block">Contacts</span>
         </div>
-
+        {/* TODO: Online filter toggle */}
         <div className="mt-3 hidden lg:flex items-center gap-2">
           <label className="cursor-pointer flex items-center gap-2">
             <input
@@ -53,9 +38,7 @@ const Sidebar = () => {
             />
             <span className="text-sm">Show online only</span>
           </label>
-          <span className="text-xs text-zinc-500">
-            ({onlineUsers.length} online)
-          </span>
+          <span className="text-xs text-zinc-500">({onlineUsers.length - 1} online)</span>
         </div>
       </div>
 
@@ -73,7 +56,7 @@ const Sidebar = () => {
             <div className="relative mx-auto lg:mx-0">
               <img
                 src={user.profilePic || "/avatar.png"}
-                alt={user.fullName}
+                alt={user.name}
                 className="size-12 object-cover rounded-full"
               />
               {onlineUsers.includes(user._id) && (
@@ -84,6 +67,7 @@ const Sidebar = () => {
               )}
             </div>
 
+            {/* User info - only visible on larger screens */}
             <div className="hidden lg:block text-left min-w-0">
               <div className="font-medium truncate">{user.fullName}</div>
               <div className="text-sm text-zinc-400">
@@ -92,9 +76,12 @@ const Sidebar = () => {
             </div>
           </button>
         ))}
+
+        {filteredUsers.length === 0 && (
+          <div className="text-center text-zinc-500 py-4">No online users</div>
+        )}
       </div>
     </aside>
   );
 };
-
 export default Sidebar;
